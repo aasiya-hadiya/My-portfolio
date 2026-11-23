@@ -20,14 +20,16 @@ export function ContactSection() {
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2200);
     } catch {
-      // Fallback for clipboard restrictions
       window.location.href = `mailto:${PROFILE.email}`;
     }
   };
 
   const mailtoHref = `mailto:${PROFILE.email}?subject=${encodeURIComponent(
-    `[${selectedTopic}] Reaching out via aasiya.dev`
-  )}&body=${encodeURIComponent(message || `Hi Aasiya,\n\nI came across your portfolio and wanted to connect regarding ${selectedTopic}.`)}`;
+    `[${selectedTopic}] Portfolio Inquiry`
+  )}&body=${encodeURIComponent(
+    message ||
+      `Hi Aasiya,\n\nI came across your portfolio and wanted to connect regarding ${selectedTopic}.`
+  )}`;
 
   return (
     <section
@@ -36,11 +38,12 @@ export function ContactSection() {
     >
       <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
         <div className="lg:col-span-6">
-          <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
+          <p className="text-sm font-semibold text-rose-600 dark:text-rose-400">
             Contact
           </p>
           <h2 className="mt-2 max-w-lg font-display text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl dark:text-zinc-50 text-balance">
-            Open to internships, collaborations and hackathon teams.
+            Open to internships, collaborations and{' '}
+            <span className="text-blue-600 dark:text-blue-400">hackathon teams</span>.
           </h2>
           <p className="mt-4 max-w-md text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400">
             Whether you’re hiring for Machine Learning or AI engineering internships, forming a hackathon team, or exploring product collaborations, let’s connect.
@@ -58,11 +61,11 @@ export function ContactSection() {
             <button
               type="button"
               onClick={handleCopyEmail}
-              className="inline-flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-800 transition-colors hover:border-zinc-300 hover:bg-zinc-50 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-200 dark:hover:border-zinc-700 whitespace-nowrap shrink-0"
+              className="inline-flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-indigo-700 transition-colors hover:border-indigo-300 hover:bg-indigo-50/60 dark:border-zinc-800 dark:bg-zinc-900 dark:text-indigo-300 dark:hover:border-zinc-700 whitespace-nowrap shrink-0"
             >
               {copied ? (
                 <>
-                  <Check className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                  <Check className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
                   Copied email
                 </>
               ) : (
@@ -74,12 +77,12 @@ export function ContactSection() {
             </button>
           </div>
 
-          <div className="mt-8 flex items-center gap-6 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+          <div className="mt-8 flex items-center gap-6 text-sm font-medium">
             <a
               href={PROFILE.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 transition-colors hover:text-zinc-950 dark:hover:text-zinc-50"
+              className="inline-flex items-center gap-1 text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400"
             >
               LinkedIn <ArrowUpRight className="h-4 w-4" />
             </a>
@@ -87,7 +90,7 @@ export function ContactSection() {
               href={PROFILE.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 transition-colors hover:text-zinc-950 dark:hover:text-zinc-50"
+              className="inline-flex items-center gap-1 text-emerald-600 transition-colors hover:text-emerald-700 dark:text-emerald-400"
             >
               GitHub <ArrowUpRight className="h-4 w-4" />
             </a>
@@ -97,7 +100,7 @@ export function ContactSection() {
         {/* Direct Inquiry Composer */}
         <div className="lg:col-span-6">
           <div className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-[#111114]">
-            <h3 className="font-display text-lg font-semibold text-zinc-950 dark:text-zinc-50">
+            <h3 className="font-display text-lg font-semibold text-indigo-700 dark:text-indigo-300">
               Start a conversation
             </h3>
             <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
@@ -117,7 +120,7 @@ export function ContactSection() {
                     className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${
                       selectedTopic === topic
                         ? 'border-blue-600 bg-blue-600 text-white'
-                        : 'border-zinc-200 bg-zinc-50 text-zinc-700 hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700'
+                        : 'border-zinc-200 bg-white text-zinc-700 hover:border-blue-300 hover:text-blue-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700'
                     }`}
                   >
                     {topic}
@@ -139,7 +142,7 @@ export function ContactSection() {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder={`Hi Aasiya, reaching out about ${selectedTopic}...`}
-                className="mt-2 w-full rounded-xl border border-zinc-200 bg-zinc-50 px-3.5 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-blue-600 focus:outline-none dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500"
+                className="mt-2 w-full rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-blue-600 focus:outline-none dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500"
               />
             </div>
 
@@ -149,7 +152,7 @@ export function ContactSection() {
               </span>
               <a
                 href={mailtoHref}
-                className="inline-flex items-center gap-1.5 rounded-lg bg-zinc-950 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-zinc-800 dark:bg-zinc-100 dark:text-zinc-950 dark:hover:bg-zinc-200 whitespace-nowrap shrink-0"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-indigo-700 whitespace-nowrap shrink-0"
               >
                 Open Email Draft <ArrowUpRight className="h-4 w-4" />
               </a>

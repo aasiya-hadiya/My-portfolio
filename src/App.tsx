@@ -18,6 +18,7 @@ import {
   PROJECTS,
   PROOF_METRICS,
   STACK_MATRIX,
+  type AccentTone,
   type ProjectCategory,
   type ProjectItem,
 } from './data/portfolio';
@@ -36,9 +37,17 @@ const MARQUEE_ITEMS = [
   'StashVault Co-Founder',
 ];
 
+const ACCENT_TEXT: Record<AccentTone, string> = {
+  blue: 'text-blue-600 dark:text-blue-400',
+  emerald: 'text-emerald-600 dark:text-emerald-400',
+  indigo: 'text-indigo-600 dark:text-indigo-400',
+  violet: 'text-violet-600 dark:text-violet-400',
+  rose: 'text-rose-600 dark:text-rose-400',
+};
+
 export default function App() {
   const [isDark, setIsDark] = useState<boolean>(() => {
-    if (typeof document === 'undefined') return true;
+    if (typeof document === 'undefined') return false;
     return document.documentElement.classList.contains('dark');
   });
 
@@ -92,7 +101,7 @@ export default function App() {
   }, [certFilter, certQuery]);
 
   return (
-    <div id="top" className="min-h-screen bg-zinc-50 text-zinc-900 dark:bg-[#09090B] dark:text-zinc-100">
+    <div id="top" className="min-h-screen bg-white text-zinc-900 dark:bg-[#09090B] dark:text-zinc-100">
       <Navbar />
 
       <main className="mx-auto max-w-[1200px] px-6">
@@ -102,21 +111,24 @@ export default function App() {
             {/* Left Column: Editorial Hierarchy */}
             <div className="flex flex-col justify-between lg:col-span-6">
               <div>
-                <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
+                <p className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">
                   {PROFILE.headline}
                 </p>
 
                 <h1 className="mt-4 font-display text-[clamp(2.5rem,4.5vw,3.9rem)] font-bold leading-[1.06] tracking-tight text-zinc-950 dark:text-zinc-50 text-balance">
-                  Hi, I’m {PROFILE.name}.
+                  Hi, I’m{' '}
+                  <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent dark:from-blue-400 dark:via-indigo-400 dark:to-violet-400">
+                    {PROFILE.name}.
+                  </span>
                 </h1>
 
                 <p className="mt-5 max-w-xl text-base leading-relaxed text-zinc-600 sm:text-[17px] dark:text-zinc-400">
                   Machine Learning Intern at{' '}
-                  <span className="font-medium text-zinc-950 dark:text-zinc-100">
+                  <span className="font-semibold text-blue-600 dark:text-blue-400">
                     FlyRank AI
                   </span>{' '}
                   and Co-Founder of{' '}
-                  <span className="font-medium text-zinc-950 dark:text-zinc-100">
+                  <span className="font-semibold text-emerald-600 dark:text-emerald-400">
                     StashVault
                   </span>
                   . I build applied AI systems, OCR pipelines, and full-stack web products from hackathon prototype to public launch.
@@ -135,7 +147,7 @@ export default function App() {
                   href={PROFILE.github}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-800 transition-colors duration-150 hover:border-zinc-300 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-[#111114] dark:text-zinc-200 dark:hover:border-zinc-700 dark:hover:bg-zinc-900 whitespace-nowrap shrink-0"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-emerald-700 transition-colors duration-150 hover:border-emerald-300 hover:bg-emerald-50/50 dark:border-zinc-800 dark:bg-[#111114] dark:text-emerald-400 dark:hover:border-zinc-700 whitespace-nowrap shrink-0"
                 >
                   GitHub <ArrowUpRight className="h-4 w-4" />
                 </a>
@@ -144,7 +156,7 @@ export default function App() {
                   href={PROFILE.linkedin}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-800 transition-colors duration-150 hover:border-zinc-300 hover:bg-zinc-100 dark:border-zinc-800 dark:bg-[#111114] dark:text-zinc-200 dark:hover:border-zinc-700 dark:hover:bg-zinc-900 whitespace-nowrap shrink-0"
+                  className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-indigo-700 transition-colors duration-150 hover:border-indigo-300 hover:bg-indigo-50/50 dark:border-zinc-800 dark:bg-[#111114] dark:text-indigo-400 dark:hover:border-zinc-700 whitespace-nowrap shrink-0"
                 >
                   LinkedIn <ArrowUpRight className="h-4 w-4" />
                 </a>
@@ -152,13 +164,13 @@ export default function App() {
                 <button
                   type="button"
                   onClick={() => setIsDark((prev) => !prev)}
-                  aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
+                  aria-label={isDark ? 'Switch to white theme' : 'Switch to dark theme'}
                   className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 bg-white px-3.5 py-2.5 text-sm font-medium text-zinc-700 transition-colors duration-150 hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-800 dark:bg-[#111114] dark:text-zinc-300 dark:hover:border-zinc-700 dark:hover:text-zinc-50 whitespace-nowrap shrink-0"
                 >
                   {isDark ? (
                     <>
                       <Sun className="h-4 w-4" />
-                      <span>Light</span>
+                      <span>White</span>
                     </>
                   ) : (
                     <>
@@ -180,10 +192,12 @@ export default function App() {
           <div className="mt-10 grid grid-cols-2 divide-y divide-zinc-200 rounded-2xl border border-zinc-200 bg-white sm:grid-cols-4 sm:divide-x sm:divide-y-0 dark:divide-zinc-800 dark:border-zinc-800 dark:bg-[#111114]">
             {PROOF_METRICS.map((metric) => (
               <div key={metric.label} className="p-5 sm:p-6">
-                <p className="font-mono text-2xl font-semibold tracking-tight tabular-nums text-zinc-950 sm:text-3xl dark:text-zinc-50">
+                <p
+                  className={`font-mono text-2xl font-bold tracking-tight tabular-nums sm:text-3xl ${ACCENT_TEXT[metric.accent]}`}
+                >
                   {metric.value}
                 </p>
-                <p className="mt-1.5 text-sm font-medium text-zinc-900 dark:text-zinc-200">
+                <p className="mt-1.5 text-sm font-semibold text-zinc-900 dark:text-zinc-200">
                   {metric.label}
                 </p>
                 <p className="mt-0.5 text-xs text-zinc-500 dark:text-zinc-400">
@@ -199,7 +213,7 @@ export default function App() {
           aria-hidden="true"
           className="marquee-wrapper overflow-hidden border-y border-zinc-200 py-3.5 dark:border-zinc-800"
         >
-          <div className="marquee-track flex items-center gap-6 text-xs font-medium text-zinc-500 dark:text-zinc-400">
+          <div className="marquee-track flex items-center gap-6 text-xs font-medium text-indigo-600 dark:text-indigo-400">
             {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, idx) => (
               <span key={`${item}-${idx}`} className="inline-flex items-center gap-6 whitespace-nowrap">
                 <span>{item}</span>
@@ -213,7 +227,7 @@ export default function App() {
         <section id="projects" className="py-20">
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
+              <p className="text-sm font-semibold text-blue-600 dark:text-blue-400">
                 Projects
               </p>
               <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl dark:text-zinc-50">
@@ -224,7 +238,7 @@ export default function App() {
             <div
               role="group"
               aria-label="Filter projects by category"
-              className="inline-flex items-center gap-1 rounded-lg bg-zinc-200/70 p-1 dark:bg-zinc-900"
+              className="inline-flex items-center gap-1 rounded-lg bg-zinc-100 p-1 dark:bg-zinc-900"
             >
               {(
                 [
@@ -239,7 +253,7 @@ export default function App() {
                   onClick={() => setProjectFilter(tab.id)}
                   className={`rounded-md px-3.5 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${
                     projectFilter === tab.id
-                      ? 'bg-white text-zinc-950 shadow-xs dark:bg-zinc-800 dark:text-zinc-50'
+                      ? 'bg-white text-blue-600 shadow-xs dark:bg-zinc-800 dark:text-blue-400'
                       : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-100'
                   }`}
                 >
@@ -252,17 +266,18 @@ export default function App() {
           <div className="mt-10 grid gap-6 md:grid-cols-2">
             {filteredProjects.map((project) => {
               const isFeatured = Boolean(project.featured);
+              const accentClass = ACCENT_TEXT[project.accent];
               return (
                 <article
                   key={project.id}
-                  className={`group flex flex-col justify-between rounded-2xl border border-zinc-200 bg-white p-6 transition-colors duration-150 hover:border-zinc-300 sm:p-8 dark:border-zinc-800 dark:bg-[#111114] dark:hover:border-zinc-700 ${
+                  className={`group flex flex-col justify-between rounded-2xl border border-zinc-200 bg-white p-6 transition-colors duration-150 hover:border-blue-300 sm:p-8 dark:border-zinc-800 dark:bg-[#111114] dark:hover:border-zinc-700 ${
                     isFeatured ? 'md:col-span-2' : ''
                   }`}
                 >
                   <div>
                     <div className="flex flex-wrap items-center justify-between gap-2 text-xs text-zinc-500 dark:text-zinc-400">
                       <span>{project.meta}</span>
-                      <span className="font-mono text-zinc-600 dark:text-zinc-400">
+                      <span className={`font-mono font-medium ${accentClass}`}>
                         {project.primaryTag}
                       </span>
                     </div>
@@ -272,7 +287,7 @@ export default function App() {
                         <h3 className="font-display text-2xl font-bold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50">
                           {project.title}
                         </h3>
-                        <p className="mt-1 text-sm font-medium text-blue-600 dark:text-blue-400">
+                        <p className={`mt-1 text-sm font-semibold ${accentClass}`}>
                           {project.subtitle}
                         </p>
                         <p className="mt-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400">
@@ -282,13 +297,13 @@ export default function App() {
 
                       {isFeatured && (
                         <div className="border-t border-zinc-200 pt-5 lg:col-span-5 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-7 dark:border-zinc-800">
-                          <p className="text-xs font-semibold text-zinc-900 dark:text-zinc-200">
+                          <p className="text-xs font-semibold text-emerald-700 dark:text-emerald-400">
                             Launch Highlights
                           </p>
-                          <ul className="mt-3 space-y-2 text-sm text-zinc-600 dark:text-zinc-400">
+                          <ul className="mt-3 space-y-2 text-sm text-zinc-700 dark:text-zinc-300">
                             {project.highlights.map((h) => (
                               <li key={h} className="flex items-baseline gap-2.5">
-                                <span className="font-mono text-xs text-blue-600 dark:text-blue-400">
+                                <span className="font-mono text-xs text-emerald-600 dark:text-emerald-400">
                                   —
                                 </span>
                                 <span>{h}</span>
@@ -304,7 +319,7 @@ export default function App() {
                     <button
                       type="button"
                       onClick={() => setSelectedProject(project)}
-                      className="text-sm font-medium text-zinc-950 underline decoration-zinc-300 underline-offset-4 transition-colors hover:text-blue-600 hover:decoration-blue-600 dark:text-zinc-100 dark:decoration-zinc-700 dark:hover:text-blue-400 dark:hover:decoration-blue-400 whitespace-nowrap"
+                      className={`text-sm font-semibold underline decoration-zinc-300 underline-offset-4 transition-colors hover:opacity-80 dark:decoration-zinc-700 whitespace-nowrap ${accentClass}`}
                     >
                       Inspect architecture
                     </button>
@@ -331,11 +346,12 @@ export default function App() {
         >
           <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
             <div className="lg:col-span-5">
-              <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
+              <p className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">
                 About
               </p>
               <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl dark:text-zinc-50 text-balance">
-                Student, builder, founder.
+                Student, builder,{' '}
+                <span className="text-indigo-600 dark:text-indigo-400">founder.</span>
               </h2>
 
               <div className="mt-6 space-y-4 text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400">
@@ -359,7 +375,7 @@ export default function App() {
                 <div
                   role="group"
                   aria-label="Filter stack items"
-                  className="inline-flex items-center gap-1 rounded-lg bg-zinc-200/70 p-1 dark:bg-zinc-900"
+                  className="inline-flex items-center gap-1 rounded-lg bg-zinc-100 p-1 dark:bg-zinc-900"
                 >
                   {(
                     [
@@ -375,7 +391,7 @@ export default function App() {
                       onClick={() => setStackFilter(tab.id)}
                       className={`rounded-md px-2.5 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${
                         stackFilter === tab.id
-                          ? 'bg-white text-zinc-950 shadow-xs dark:bg-zinc-800 dark:text-zinc-50'
+                          ? 'bg-white text-indigo-600 shadow-xs dark:bg-zinc-800 dark:text-indigo-400'
                           : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-100'
                       }`}
                     >
@@ -399,7 +415,7 @@ export default function App() {
                     }`}
                   >
                     <div className="flex items-baseline justify-between gap-2">
-                      <span className="font-display text-base font-semibold text-zinc-950 dark:text-zinc-100">
+                      <span className={`font-display text-base font-semibold ${ACCENT_TEXT[item.accent]}`}>
                         {item.name}
                       </span>
                       <span className="font-mono text-xs tabular-nums text-zinc-400 dark:text-zinc-500">
@@ -426,7 +442,7 @@ export default function App() {
             <div className="lg:col-span-8">
               <div className="flex flex-wrap items-end justify-between gap-4">
                 <div>
-                  <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
+                  <p className="text-sm font-semibold text-emerald-600 dark:text-emerald-400">
                     Experience
                   </p>
                   <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl dark:text-zinc-50">
@@ -437,7 +453,7 @@ export default function App() {
                 <div
                   role="group"
                   aria-label="Filter experience by type"
-                  className="inline-flex items-center gap-1 rounded-lg bg-zinc-200/70 p-1 dark:bg-zinc-900"
+                  className="inline-flex items-center gap-1 rounded-lg bg-zinc-100 p-1 dark:bg-zinc-900"
                 >
                   {(
                     [
@@ -452,7 +468,7 @@ export default function App() {
                       onClick={() => setExperienceFilter(tab.id)}
                       className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${
                         experienceFilter === tab.id
-                          ? 'bg-white text-zinc-950 shadow-xs dark:bg-zinc-800 dark:text-zinc-50'
+                          ? 'bg-white text-emerald-600 shadow-xs dark:bg-zinc-800 dark:text-emerald-400'
                           : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-100'
                       }`}
                     >
@@ -467,10 +483,10 @@ export default function App() {
                   <article key={exp.id} className="py-6">
                     <div className="flex flex-wrap items-baseline justify-between gap-2">
                       <div>
-                        <h3 className="font-display text-lg font-semibold text-zinc-950 dark:text-zinc-50">
+                        <h3 className={`font-display text-lg font-semibold ${ACCENT_TEXT[exp.accent]}`}>
                           {exp.role}
                         </h3>
-                        <p className="mt-0.5 text-sm text-zinc-600 dark:text-zinc-400">
+                        <p className="mt-0.5 text-sm font-medium text-zinc-700 dark:text-zinc-300">
                           {exp.organization} · {exp.meta}
                         </p>
                       </div>
@@ -483,7 +499,7 @@ export default function App() {
                       {exp.description}
                     </p>
 
-                    <p className="mt-3 text-xs text-zinc-500 dark:text-zinc-500">
+                    <p className="mt-3 text-xs font-medium text-zinc-500 dark:text-zinc-500">
                       {exp.focus.join(' · ')}
                     </p>
                   </article>
@@ -493,7 +509,7 @@ export default function App() {
 
             {/* Education Column */}
             <div id="education" className="lg:col-span-4">
-              <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
+              <p className="text-sm font-semibold text-violet-600 dark:text-violet-400">
                 Education
               </p>
               <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-zinc-950 dark:text-zinc-50">
@@ -507,14 +523,14 @@ export default function App() {
                     className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-[#111114]"
                   >
                     {edu.period && (
-                      <p className="font-mono text-xs tabular-nums text-blue-600 dark:text-blue-400">
+                      <p className="font-mono text-xs font-medium tabular-nums text-violet-600 dark:text-violet-400">
                         {edu.period}
                       </p>
                     )}
                     <h3 className="mt-1 font-display text-lg font-semibold text-zinc-950 dark:text-zinc-50">
                       {edu.institution}
                     </h3>
-                    <p className="mt-1.5 text-sm font-medium text-zinc-700 dark:text-zinc-300">
+                    <p className="mt-1.5 text-sm font-medium text-blue-600 dark:text-blue-400">
                       {edu.degree}
                     </p>
                     <p className="mt-2.5 text-xs leading-relaxed text-zinc-600 dark:text-zinc-400">
@@ -534,11 +550,11 @@ export default function App() {
         >
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <p className="text-sm font-medium text-blue-600 dark:text-blue-400">
+              <p className="text-sm font-semibold text-violet-600 dark:text-violet-400">
                 Certifications
               </p>
               <h2 className="mt-2 font-display text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl dark:text-zinc-50">
-                35 licenses &amp; certifications.
+                <span className="text-violet-600 dark:text-violet-400">35</span> licenses &amp; certifications.
               </h2>
               <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
                 Selected highlights across Machine Learning, Transformers, Cloud Architecture, and Statistics.
@@ -549,7 +565,7 @@ export default function App() {
               href={PROFILE.certificationsUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:underline dark:text-blue-400 whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-600 hover:underline dark:text-blue-400 whitespace-nowrap"
             >
               See all 35 on LinkedIn <ArrowUpRight className="h-4 w-4" />
             </a>
@@ -560,7 +576,7 @@ export default function App() {
             <div
               role="group"
               aria-label="Filter certifications by topic"
-              className="inline-flex flex-wrap items-center gap-1 rounded-lg bg-zinc-200/70 p-1 dark:bg-zinc-900"
+              className="inline-flex flex-wrap items-center gap-1 rounded-lg bg-zinc-100 p-1 dark:bg-zinc-900"
             >
               {(
                 [
@@ -576,7 +592,7 @@ export default function App() {
                   onClick={() => setCertFilter(tab.id)}
                   className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${
                     certFilter === tab.id
-                      ? 'bg-white text-zinc-950 shadow-xs dark:bg-zinc-800 dark:text-zinc-50'
+                      ? 'bg-white text-violet-600 shadow-xs dark:bg-zinc-800 dark:text-violet-400'
                       : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-100'
                   }`}
                 >
@@ -619,12 +635,16 @@ export default function App() {
               {filteredCerts.map((cert) => (
                 <div
                   key={cert.id}
-                  className="flex flex-col justify-between rounded-2xl border border-zinc-200 bg-white p-5 dark:border-zinc-800 dark:bg-[#111114]"
+                  className="flex flex-col justify-between rounded-2xl border border-zinc-200 bg-white p-5 transition-colors hover:border-violet-300 dark:border-zinc-800 dark:bg-[#111114] dark:hover:border-zinc-700"
                 >
                   <div>
-                    <div className="flex items-center justify-between gap-2 text-xs text-zinc-500 dark:text-zinc-400">
-                      <span>{cert.issuer}</span>
-                      <span className="font-mono tabular-nums">{cert.date}</span>
+                    <div className="flex items-center justify-between gap-2 text-xs">
+                      <span className="font-semibold text-indigo-600 dark:text-indigo-400">
+                        {cert.issuer}
+                      </span>
+                      <span className="font-mono tabular-nums text-zinc-500 dark:text-zinc-400">
+                        {cert.date}
+                      </span>
                     </div>
                     <h3 className="mt-2.5 font-display text-base font-semibold leading-snug text-zinc-950 dark:text-zinc-100">
                       {cert.title}
@@ -641,7 +661,7 @@ export default function App() {
       </main>
 
       {/* Quiet Editorial Footer */}
-      <footer className="border-t border-zinc-200 py-8 dark:border-zinc-800">
+      <footer className="border-t border-zinc-200 bg-white py-8 dark:border-zinc-800 dark:bg-[#09090B]">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-4 px-6 text-xs text-zinc-500 dark:text-zinc-400">
           <p>© 2026 Aasiya Hadiya · built with &lt;code/&gt; &amp; curiosity</p>
 
@@ -650,7 +670,7 @@ export default function App() {
               href={PROFILE.github}
               target="_blank"
               rel="noreferrer"
-              className="transition-colors hover:text-zinc-950 dark:hover:text-zinc-100"
+              className="text-emerald-600 transition-colors hover:text-emerald-700 dark:text-emerald-400"
             >
               GitHub
             </a>
@@ -658,13 +678,13 @@ export default function App() {
               href={PROFILE.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="transition-colors hover:text-zinc-950 dark:hover:text-zinc-100"
+              className="text-indigo-600 transition-colors hover:text-indigo-700 dark:text-indigo-400"
             >
               LinkedIn
             </a>
             <a
               href={`mailto:${PROFILE.email}`}
-              className="transition-colors hover:text-zinc-950 dark:hover:text-zinc-100"
+              className="text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400"
             >
               Email
             </a>

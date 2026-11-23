@@ -8,6 +8,7 @@ interface GraphNode {
   label: string;
   detail: string;
   targetHref: string;
+  color: string;
   x: number;
   y: number;
   vx: number;
@@ -17,14 +18,14 @@ interface GraphNode {
 }
 
 const INITIAL_NODES: Omit<GraphNode, 'x' | 'y' | 'vx' | 'vy'>[] = [
-  { id: 'aasiya', label: 'Aasiya Hadiya', detail: 'AI & Data Science ’28 · Builder & Founder', targetHref: '#about', radius: 10, primary: true },
-  { id: 'stashvault', label: 'StashVault', detail: 'Co-Founder · 272+ launch visitors · Product Hunt', targetHref: '#projects', radius: 8, primary: true },
-  { id: 'flyrank', label: 'FlyRank AI', detail: 'Machine Learning Intern · Applied ML', targetHref: '#experience', radius: 7 },
-  { id: 'ocr', label: 'OCR Pipeline', detail: 'Receipt extraction & structured storage', targetHref: '#projects', radius: 6 },
-  { id: 'nlp', label: 'NLP & Transformers', detail: 'Skillsoft Certified · Prompting & LLMs', targetHref: '#certifications', radius: 6 },
-  { id: 'ml', label: 'Machine Learning', detail: 'DeepLearning.AI · Regression & Classification', targetHref: '#certifications', radius: 7 },
-  { id: 'dorahacks', label: 'DoraHacks 2.0', detail: 'Top 500 of 6,000+ teams across 35+ countries', targetHref: '#experience', radius: 6 },
-  { id: 'fullstack', label: 'Full-Stack Web', detail: 'Python · JavaScript · HTML · Databases', targetHref: '#about', radius: 6 },
+  { id: 'aasiya', label: 'Aasiya Hadiya', detail: 'AI & Data Science ’28 · Builder & Founder', targetHref: '#about', color: '#2563EB', radius: 10, primary: true },
+  { id: 'stashvault', label: 'StashVault', detail: 'Co-Founder · 272+ launch visitors · Product Hunt', targetHref: '#projects', color: '#059669', radius: 8, primary: true },
+  { id: 'flyrank', label: 'FlyRank AI', detail: 'Machine Learning Intern · Applied ML', targetHref: '#experience', color: '#4F46E5', radius: 7 },
+  { id: 'ocr', label: 'OCR Pipeline', detail: 'Receipt extraction & structured storage', targetHref: '#projects', color: '#059669', radius: 6 },
+  { id: 'nlp', label: 'NLP & Transformers', detail: 'Skillsoft Certified · Prompting & LLMs', targetHref: '#certifications', color: '#7C3AED', radius: 6 },
+  { id: 'ml', label: 'Machine Learning', detail: 'DeepLearning.AI · Regression & Classification', targetHref: '#certifications', color: '#2563EB', radius: 7 },
+  { id: 'dorahacks', label: 'DoraHacks 2.0', detail: 'Top 500 of 6,000+ teams across 35+ countries', targetHref: '#experience', color: '#E11D48', radius: 6 },
+  { id: 'fullstack', label: 'Full-Stack Web', detail: 'Python · JavaScript · HTML · Databases', targetHref: '#about', color: '#4F46E5', radius: 6 },
 ];
 
 const EDGES: [string, string][] = [
@@ -81,15 +82,15 @@ const OCR_SAMPLES = [
 ];
 
 interface ConsoleLine {
-  kind: 'boot' | 'cmd' | 'out';
+  kind: 'boot' | 'ok' | 'cmd' | 'out';
   text: string;
 }
 
 const BOOT_SEQUENCE: ConsoleLine[] = [
-  { kind: 'boot', text: '$ booting aasiya.dev ...' },
-  { kind: 'boot', text: '> loading modules: AI · ML · Web' },
-  { kind: 'boot', text: '> compiling projects ... OK' },
-  { kind: 'boot', text: '> welcome, Aasiya_' },
+  { kind: 'boot', text: '$ loading modules: AI · ML · Web' },
+  { kind: 'ok', text: '> compiling projects ... OK' },
+  { kind: 'boot', text: '> syncing StashVault · FlyRank AI · DoraHacks 2.0' },
+  { kind: 'ok', text: '> welcome, Aasiya_' },
 ];
 
 export function HeroStudio({ isDark }: { isDark: boolean }) {
@@ -98,16 +99,13 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
   const [hoveredNode, setHoveredNode] = useState<GraphNode | null>(null);
   const [selectedNodeId, setSelectedNodeId] = useState<string>('stashvault');
 
-  // Console state
   const [lines, setLines] = useState<ConsoleLine[]>(BOOT_SEQUENCE);
   const [cmdInput, setCmdInput] = useState('');
   const consoleEndRef = useRef<HTMLDivElement | null>(null);
 
-  // OCR sample state
   const [selectedOcrId, setSelectedOcrId] = useState<string>('laptop');
   const activeOcr = OCR_SAMPLES.find((s) => s.id === selectedOcrId) ?? OCR_SAMPLES[0];
 
-  // Interactive neural topology canvas
   useEffect(() => {
     if (activeTab !== 'topology') return;
     const canvas = canvasRef.current;
@@ -194,16 +192,15 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
       ctx.clearRect(0, 0, width, height);
 
       // Subtle architectural dot grid
-      ctx.fillStyle = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(9,9,11,0.07)';
+      ctx.fillStyle = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(37, 99, 235, 0.1)';
       const step = 28;
       for (let gx = step; gx < width; gx += step) {
         for (let gy = step; gy < height; gy += step) {
-          ctx.fillRect(gx, gy, 1.2, 1.2);
+          ctx.fillRect(gx, gy, 1.3, 1.3);
         }
       }
 
       if (!prefersReducedMotion) {
-        // Gentle orbital / spring simulation
         const centerX = width / 2;
         const centerY = height / 2;
         for (let i = 0; i < nodes.length; i++) {
@@ -233,7 +230,7 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
 
           n.vx *= 0.92;
           n.vy *= 0.92;
-          n.x = Math.max(44, Math.min(width - 44, n.x + n.vx));
+          n.x = Math.max(46, Math.min(width - 46, n.x + n.vx));
           n.y = Math.max(36, Math.min(height - 36, n.y + n.vy));
         }
       }
@@ -253,17 +250,15 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(b.x, b.y);
         ctx.strokeStyle = isHighlighted
-          ? isDark
-            ? 'rgba(59, 130, 246, 0.72)'
-            : 'rgba(37, 99, 235, 0.65)'
+          ? b.color
           : isDark
-          ? 'rgba(161, 161, 170, 0.18)'
-          : 'rgba(113, 113, 122, 0.2)';
-        ctx.lineWidth = isHighlighted ? 1.5 : 1;
+          ? 'rgba(161, 161, 170, 0.22)'
+          : 'rgba(148, 163, 184, 0.45)';
+        ctx.lineWidth = isHighlighted ? 1.75 : 1;
         ctx.stroke();
       }
 
-      // Draw nodes and crisp labels
+      // Draw colorful nodes and labels
       for (const node of nodes) {
         const isHovered = currentHover?.id === node.id;
         const isSelected = selectedNodeId === node.id;
@@ -271,29 +266,23 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
         if (isHovered || isSelected) {
           ctx.beginPath();
           ctx.arc(node.x, node.y, node.radius + 7, 0, Math.PI * 2);
-          ctx.fillStyle = isDark ? 'rgba(59, 130, 246, 0.18)' : 'rgba(37, 99, 235, 0.14)';
+          ctx.fillStyle = `${node.color}26`;
           ctx.fill();
         }
 
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        if (node.primary || isHovered || isSelected) {
-          ctx.fillStyle = '#2563EB';
-        } else {
-          ctx.fillStyle = isDark ? '#E4E4E7' : '#18181B';
-        }
+        ctx.fillStyle = node.color;
         ctx.fill();
 
         ctx.font = `${isHovered || isSelected ? '600' : '500'} 11.5px "Plus Jakarta Sans", sans-serif`;
         ctx.textAlign = 'center';
         ctx.fillStyle =
           isHovered || isSelected
-            ? isDark
-              ? '#93C5FD'
-              : '#1D4ED8'
+            ? node.color
             : isDark
-            ? '#D4D4D8'
-            : '#27272A';
+            ? '#E4E4E7'
+            : '#1E293B';
         ctx.fillText(node.label, node.x, node.y + node.radius + 15);
       }
 
@@ -373,7 +362,7 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-[#111114]">
       {/* Studio Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-200 px-4 py-3 dark:border-zinc-800">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-200 bg-white px-4 py-3 dark:border-zinc-800 dark:bg-[#111114]">
         <div
           role="tablist"
           aria-label="Interactive showcase mode"
@@ -386,7 +375,7 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
             onClick={() => setActiveTab('topology')}
             className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${
               activeTab === 'topology'
-                ? 'bg-white text-zinc-950 shadow-xs dark:bg-zinc-800 dark:text-zinc-50'
+                ? 'bg-white text-blue-600 shadow-xs dark:bg-zinc-800 dark:text-blue-400'
                 : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-100'
             }`}
           >
@@ -399,11 +388,11 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
             onClick={() => setActiveTab('console')}
             className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${
               activeTab === 'console'
-                ? 'bg-white text-zinc-950 shadow-xs dark:bg-zinc-800 dark:text-zinc-50'
+                ? 'bg-white text-indigo-600 shadow-xs dark:bg-zinc-800 dark:text-indigo-400'
                 : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-100'
             }`}
           >
-            Boot Console
+            Console
           </button>
           <button
             role="tab"
@@ -412,7 +401,7 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
             onClick={() => setActiveTab('ocr')}
             className={`rounded-md px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${
               activeTab === 'ocr'
-                ? 'bg-white text-zinc-950 shadow-xs dark:bg-zinc-800 dark:text-zinc-50'
+                ? 'bg-white text-emerald-600 shadow-xs dark:bg-zinc-800 dark:text-emerald-400'
                 : 'text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-100'
             }`}
           >
@@ -420,14 +409,14 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
           </button>
         </div>
 
-        <span className="font-mono text-xs text-zinc-500 dark:text-zinc-400 whitespace-nowrap">
-          &lt;aasiya/&gt;
+        <span className="font-mono text-xs font-medium text-indigo-600 dark:text-indigo-400 whitespace-nowrap">
+          AI · ML · Web
         </span>
       </div>
 
       {/* Interactive Viewport */}
       {activeTab === 'topology' && (
-        <div className="flex flex-1 flex-col justify-between">
+        <div className="flex flex-1 flex-col justify-between bg-white dark:bg-[#111114]">
           <div className="relative h-[300px] w-full sm:h-[330px]">
             <canvas
               ref={canvasRef}
@@ -435,9 +424,9 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
               className="h-full w-full block"
             />
           </div>
-          <div className="flex items-center justify-between gap-4 border-t border-zinc-200 bg-zinc-50/70 px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900/50">
+          <div className="flex items-center justify-between gap-4 border-t border-zinc-200 bg-white px-4 py-3 dark:border-zinc-800 dark:bg-zinc-900/50">
             <div className="min-w-0">
-              <p className="text-xs font-semibold text-zinc-900 dark:text-zinc-100 truncate">
+              <p className="text-xs font-semibold text-blue-600 dark:text-blue-400 truncate">
                 {activeNode.label}
               </p>
               <p className="text-xs text-zinc-600 dark:text-zinc-400 truncate">
@@ -446,7 +435,7 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
             </div>
             <a
               href={activeNode.targetHref}
-              className="inline-flex items-center gap-1 rounded-md border border-zinc-200 bg-white px-2.5 py-1.5 text-xs font-medium text-zinc-800 transition-colors hover:border-blue-600 hover:text-blue-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-200 dark:hover:border-blue-500 dark:hover:text-blue-400 whitespace-nowrap shrink-0"
+              className="inline-flex items-center gap-1 rounded-md border border-zinc-200 bg-white px-2.5 py-1.5 text-xs font-medium text-blue-600 transition-colors hover:border-blue-600 hover:bg-blue-50 dark:border-zinc-700 dark:bg-zinc-800 dark:text-blue-400 dark:hover:border-blue-500 whitespace-nowrap shrink-0"
             >
               Inspect <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
@@ -455,17 +444,19 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
       )}
 
       {activeTab === 'console' && (
-        <div className="flex flex-1 flex-col justify-between bg-zinc-950 text-zinc-100">
+        <div className="flex flex-1 flex-col justify-between bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100">
           <div className="h-[280px] overflow-y-auto p-4 font-mono text-xs leading-relaxed sm:h-[305px]">
             {lines.map((line, i) => (
               <div
                 key={`${line.text}-${i}`}
                 className={
                   line.kind === 'boot'
-                    ? 'text-blue-400'
+                    ? 'text-blue-600 dark:text-blue-400'
+                    : line.kind === 'ok'
+                    ? 'text-emerald-600 font-medium dark:text-emerald-400'
                     : line.kind === 'cmd'
-                    ? 'mt-2 text-zinc-200 font-medium'
-                    : 'mt-1 text-zinc-400'
+                    ? 'mt-2 text-indigo-700 font-semibold dark:text-indigo-300'
+                    : 'mt-1 text-zinc-700 dark:text-zinc-300'
                 }
               >
                 {line.text}
@@ -474,14 +465,14 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
             <div ref={consoleEndRef} />
           </div>
 
-          <div className="border-t border-zinc-800 bg-zinc-900/80 p-3">
+          <div className="border-t border-zinc-200 bg-zinc-50/60 p-3 dark:border-zinc-800 dark:bg-zinc-900/80">
             <div className="mb-2.5 flex flex-wrap gap-1.5">
               {['about', 'stashvault', 'experience', 'stack', 'contact'].map((preset) => (
                 <button
                   key={preset}
                   type="button"
                   onClick={() => runCommand(preset)}
-                  className="rounded-md border border-zinc-700 bg-zinc-800/80 px-2.5 py-1 font-mono text-[11px] text-zinc-300 transition-colors hover:border-blue-500 hover:text-white whitespace-nowrap shrink-0"
+                  className="rounded-md border border-zinc-200 bg-white px-2.5 py-1 font-mono text-[11px] font-medium text-indigo-600 transition-colors hover:border-blue-500 hover:text-blue-600 dark:border-zinc-700 dark:bg-zinc-800/80 dark:text-indigo-300 dark:hover:text-white whitespace-nowrap shrink-0"
                 >
                   {preset}
                 </button>
@@ -490,7 +481,7 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
                 type="button"
                 onClick={() => runCommand('replay')}
                 aria-label="Replay boot sequence"
-                className="ml-auto inline-flex items-center gap-1 rounded-md border border-zinc-700 px-2 py-1 font-mono text-[11px] text-zinc-400 transition-colors hover:text-white whitespace-nowrap shrink-0"
+                className="ml-auto inline-flex items-center gap-1 rounded-md border border-zinc-200 bg-white px-2 py-1 font-mono text-[11px] text-zinc-600 transition-colors hover:text-blue-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-400 dark:hover:text-white whitespace-nowrap shrink-0"
               >
                 <RotateCcw className="h-3 w-3" /> Reset
               </button>
@@ -500,20 +491,20 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
                 e.preventDefault();
                 runCommand(cmdInput);
               }}
-              className="flex items-center gap-2 rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-1.5"
+              className="flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-3 py-1.5 dark:border-zinc-700 dark:bg-zinc-950"
             >
-              <Terminal className="h-3.5 w-3.5 text-blue-400 shrink-0" />
+              <Terminal className="h-3.5 w-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
               <input
                 type="text"
                 value={cmdInput}
                 onChange={(e) => setCmdInput(e.target.value)}
                 placeholder="Type a command (try: help)"
                 aria-label="Terminal command input"
-                className="w-full bg-transparent font-mono text-xs text-zinc-100 placeholder:text-zinc-500 focus:outline-none"
+                className="w-full bg-transparent font-mono text-xs text-zinc-900 placeholder:text-zinc-400 focus:outline-none dark:text-zinc-100 dark:placeholder:text-zinc-500"
               />
               <button
                 type="submit"
-                className="rounded px-2 py-0.5 font-mono text-[11px] font-medium text-blue-400 hover:bg-zinc-800 whitespace-nowrap shrink-0"
+                className="rounded px-2 py-0.5 font-mono text-[11px] font-semibold text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-zinc-800 whitespace-nowrap shrink-0"
               >
                 Run
               </button>
@@ -523,13 +514,13 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
       )}
 
       {activeTab === 'ocr' && (
-        <div className="flex flex-1 flex-col justify-between p-4">
+        <div className="flex flex-1 flex-col justify-between bg-white p-4 dark:bg-[#111114]">
           <div>
             <div className="flex items-center justify-between gap-2 pb-3">
               <p className="text-xs font-medium text-zinc-600 dark:text-zinc-400">
                 Sample Receipt Input
               </p>
-              <span className="font-mono text-xs tabular-nums text-blue-600 dark:text-blue-400">
+              <span className="font-mono text-xs font-medium tabular-nums text-emerald-600 dark:text-emerald-400">
                 OCR Confidence {activeOcr.confidence}
               </span>
             </div>
@@ -542,8 +533,8 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
                   onClick={() => setSelectedOcrId(sample.id)}
                   className={`rounded-lg border px-2.5 py-2 text-left text-xs transition-colors ${
                     selectedOcrId === sample.id
-                      ? 'border-blue-600 bg-blue-600/10 font-semibold text-blue-700 dark:border-blue-500 dark:bg-blue-500/15 dark:text-blue-300'
-                      : 'border-zinc-200 text-zinc-700 hover:border-zinc-300 dark:border-zinc-800 dark:text-zinc-300 dark:hover:border-zinc-700'
+                      ? 'border-emerald-600 bg-emerald-50 font-semibold text-emerald-700 dark:border-emerald-500 dark:bg-emerald-500/15 dark:text-emerald-300'
+                      : 'border-zinc-200 bg-white text-zinc-700 hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700'
                   }`}
                 >
                   <span className="block truncate">{sample.item}</span>
@@ -552,11 +543,11 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
             </div>
 
             {/* Structured Extraction Preview */}
-            <div className="rounded-xl border border-zinc-200 bg-zinc-50 p-3.5 dark:border-zinc-800 dark:bg-zinc-900/70">
+            <div className="rounded-xl border border-zinc-200 bg-zinc-50/60 p-3.5 dark:border-zinc-800 dark:bg-zinc-900/70">
               <div className="grid grid-cols-2 gap-x-4 gap-y-2.5 text-xs">
                 <div>
                   <span className="block text-[11px] text-zinc-500 dark:text-zinc-400">Product</span>
-                  <span className="font-medium text-zinc-900 dark:text-zinc-100">{activeOcr.item}</span>
+                  <span className="font-semibold text-indigo-700 dark:text-indigo-300">{activeOcr.item}</span>
                 </div>
                 <div>
                   <span className="block text-[11px] text-zinc-500 dark:text-zinc-400">Merchant</span>
@@ -568,7 +559,7 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
                 </div>
                 <div>
                   <span className="block text-[11px] text-zinc-500 dark:text-zinc-400">Amount</span>
-                  <span className="font-mono tabular-nums text-zinc-900 dark:text-zinc-100">{activeOcr.total}</span>
+                  <span className="font-mono font-medium tabular-nums text-blue-600 dark:text-blue-400">{activeOcr.total}</span>
                 </div>
                 <div>
                   <span className="block text-[11px] text-zinc-500 dark:text-zinc-400">Warranty Expiry</span>
@@ -576,23 +567,23 @@ export function HeroStudio({ isDark }: { isDark: boolean }) {
                 </div>
                 <div>
                   <span className="block text-[11px] text-zinc-500 dark:text-zinc-400">Return Window</span>
-                  <span className="font-medium text-blue-600 dark:text-blue-400">{activeOcr.returnWindow}</span>
+                  <span className="font-semibold text-emerald-600 dark:text-emerald-400">{activeOcr.returnWindow}</span>
                 </div>
               </div>
               <div className="mt-3 border-t border-zinc-200 pt-2.5 text-xs text-zinc-600 dark:border-zinc-800 dark:text-zinc-300">
-                <span className="font-semibold text-zinc-900 dark:text-zinc-100">AI Assistant: </span>
+                <span className="font-semibold text-blue-600 dark:text-blue-400">AI Assistant: </span>
                 {activeOcr.aiNote}
               </div>
             </div>
           </div>
 
-          <div className="mt-3 flex items-center justify-between text-xs text-zinc-500 dark:text-zinc-400">
+          <div className="mt-3 flex items-center justify-between text-xs text-zinc-600 dark:text-zinc-400">
             <span>{activeOcr.status}</span>
             <a
               href="https://github.com/aasiya-hadiya/StashVault"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 font-medium text-blue-600 hover:underline dark:text-blue-400 whitespace-nowrap"
+              className="inline-flex items-center gap-1 font-medium text-emerald-600 hover:underline dark:text-emerald-400 whitespace-nowrap"
             >
               StashVault Repo <ArrowUpRight className="h-3.5 w-3.5" />
             </a>

@@ -1,13 +1,13 @@
-# aasiya.dev — AI & ML Portfolio
+# Aasiya Hadiya — AI & ML Portfolio
 
 Personal portfolio for **Aasiya Hadiya**, AI & Data Science undergraduate (’28), Machine Learning Intern at FlyRank AI, and Co-Founder of StashVault.
 
 ## Highlights
 
-- **Interactive Hero Studio**: Switch between a Canvas 2D Skill Graph, an interactive `aasiya.dev` Boot Console, and a StashVault OCR extraction simulator.
+- **Interactive Hero Studio**: Switch between a Canvas 2D Skill Graph, an interactive Boot Console, and a StashVault OCR extraction simulator.
 - **Projects & Architecture Breakdown**: Filterable project showcase (`All Projects`, `AI & ML`, `Web`) with detailed architecture modals for **StashVault**, **ACE · Machine Learning**, **EcoRack-AI**, **abtalks 2.0**, and **Report It**.
 - **Experience, Education & Certifications**: Filterable timeline for internships and fellowships alongside a searchable certifications explorer.
-- **Dual Theme**: Light and dark mode support persisted in `localStorage`.
+- **White Editorial Canvas + Color Accents**: High-contrast white background with colorful typographic hierarchy and optional dark mode toggle.
 
 ## Tech Stack
 
@@ -23,8 +23,13 @@ npm install
 npm run dev
 ```
 
-## Production Build
+## Production Build & Vercel Deployment
 
 ```bash
 npm run build
 ```
+
+1. Push this repository to GitHub.
+2. Import the repository into [Vercel](https://vercel.com) (framework preset: **Vite**).
+3. Add any optional environment variables from `.env.example` under **Project Settings → Environment Variables** (never commit `.env` files).
+4. Click **Deploy**.

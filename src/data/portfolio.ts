@@ -1,9 +1,12 @@
 export type ProjectCategory = 'all' | 'ai-ml' | 'web';
 
+export type AccentTone = 'blue' | 'emerald' | 'indigo' | 'violet' | 'rose';
+
 export interface ProjectItem {
   id: string;
   title: string;
   subtitle: string;
+  accent: AccentTone;
   category: Exclude<ProjectCategory, 'all'>;
   featured?: boolean;
   meta: string;
@@ -23,6 +26,7 @@ export interface ProofMetric {
   value: string;
   label: string;
   context: string;
+  accent: AccentTone;
 }
 
 export interface ExperienceItem {
@@ -32,6 +36,7 @@ export interface ExperienceItem {
   meta: string;
   period: string;
   type: 'work' | 'fellowship';
+  accent: AccentTone;
   description: string;
   focus: string[];
 }
@@ -56,18 +61,26 @@ export interface StackItem {
   index: string;
   name: string;
   domain: 'ai' | 'engineering' | 'product';
+  accent: AccentTone;
   note: string;
 }
 
+const CONTACT_EMAIL =
+  import.meta.env.VITE_PUBLIC_CONTACT_EMAIL || 'aasiyahadiya12@gmail.com';
+const GITHUB_URL =
+  import.meta.env.VITE_PUBLIC_GITHUB_URL || 'https://github.com/aasiya-hadiya';
+const LINKEDIN_URL =
+  import.meta.env.VITE_PUBLIC_LINKEDIN_URL ||
+  'https://www.linkedin.com/in/aasiya-hadiya';
+
 export const PROFILE = {
-  brand: 'aasiya.dev',
-  codeBrand: '<aasiya/>',
+  brand: 'Aasiya Hadiya',
   name: 'Aasiya Hadiya',
   headline: 'AI & Data Science Undergraduate ’28',
-  email: 'aasiyahadiya12@gmail.com',
-  github: 'https://github.com/aasiya-hadiya',
-  linkedin: 'https://www.linkedin.com/in/aasiya-hadiya',
-  certificationsUrl: 'https://www.linkedin.com/in/aasiya-hadiya/details/certifications/',
+  email: CONTACT_EMAIL,
+  github: GITHUB_URL,
+  linkedin: LINKEDIN_URL,
+  certificationsUrl: `${LINKEDIN_URL.replace(/\/$/, '')}/details/certifications/`,
   aboutParagraphs: [
     'I’m an Artificial Intelligence & Data Science student with a growing interest in Machine Learning and AI. I’m currently a Machine Learning Intern at FlyRank AI, getting hands-on with practical ML applications.',
     'I co-founded and built StashVault, an AI-powered personal ownership platform, contributing across frontend, backend, database, OCR integration, AI assistance and product development. I took it from concept to launch through a hackathon journey and launched it on Product Hunt.',
@@ -80,21 +93,25 @@ export const PROOF_METRICS: ProofMetric[] = [
     value: '272+',
     label: 'StashVault visitors',
     context: 'First 3 days after launch',
+    accent: 'blue',
   },
   {
     value: '80+',
     label: 'Launch sign-ups',
     context: '30+ user feedback responses',
+    accent: 'emerald',
   },
   {
     value: '500',
     label: 'Teams selected',
     context: 'DoraHacks 2.0 from 6,000+ apps',
+    accent: 'indigo',
   },
   {
     value: '35',
     label: 'Licenses & certs',
     context: 'AI, ML, NLP & AWS Cloud',
+    accent: 'violet',
   },
 ];
 
@@ -103,6 +120,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'stashvault',
     title: 'StashVault',
     subtitle: 'AI-powered personal ownership platform',
+    accent: 'emerald',
     category: 'ai-ml',
     featured: true,
     meta: 'Co-founded · Launched on Product Hunt · 2026',
@@ -130,6 +148,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'ace-ml',
     title: 'ACE · Machine Learning',
     subtitle: 'Interactive ML learning companion',
+    accent: 'blue',
     category: 'ai-ml',
     meta: 'Python · Educational AI',
     primaryTag: 'Python',
@@ -154,6 +173,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'ecorack-ai',
     title: 'EcoRack-AI',
     subtitle: 'Sustainability-focused AI initiative',
+    accent: 'emerald',
     category: 'ai-ml',
     meta: 'AI · Sustainability',
     primaryTag: 'AI',
@@ -178,6 +198,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'abtalks-2',
     title: 'abtalks 2.0',
     subtitle: 'JavaScript web platform iteration',
+    accent: 'indigo',
     category: 'web',
     meta: 'JavaScript · Web Architecture',
     primaryTag: 'JavaScript',
@@ -202,6 +223,7 @@ export const PROJECTS: ProjectItem[] = [
     id: 'report-it',
     title: 'Report It',
     subtitle: 'Front-end reporting interface',
+    accent: 'rose',
     category: 'web',
     meta: 'HTML · Interface Design',
     primaryTag: 'HTML',
@@ -232,6 +254,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     meta: 'Self-employed',
     period: 'Aug 2026 – Present',
     type: 'work',
+    accent: 'emerald',
     description:
       'Built an AI-powered ownership platform across frontend, backend and database, with OCR receipt extraction, AI assistance and warranty/return tracking. Took it from hackathon concept to a Product Hunt launch.',
     focus: ['Full-Stack', 'OCR Integration', 'AI Assistance', 'Product Launch'],
@@ -243,6 +266,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     meta: 'Remote',
     period: 'Aug 2026 – Present',
     type: 'work',
+    accent: 'blue',
     description:
       'Working as an AI intern focused on practical Machine Learning applications, experimentation, and production workflows.',
     focus: ['Machine Learning', 'Applied AI', 'Python'],
@@ -254,6 +278,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     meta: 'Apprenticeship · Remote',
     period: 'Aug 2026',
     type: 'fellowship',
+    accent: 'indigo',
     description:
       'Selected among 500 teams from 6,000+ applications across 35+ countries for a 2-week product-building residency.',
     focus: ['AI for Product Development', 'Product Management'],
@@ -265,6 +290,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     meta: 'Cohort Program',
     period: 'May 2026 – Sep 2026',
     type: 'fellowship',
+    accent: 'violet',
     description:
       'Completed the AI EMPOW(H)ER program (May–Jul 2026) followed by the Pragathi Path to Future Cohort-9 (Jul–Sep 2026).',
     focus: ['AI Foundations', 'Industry Readiness'],
@@ -276,6 +302,7 @@ export const EXPERIENCE: ExperienceItem[] = [
     meta: 'Remote',
     period: 'Sep 2025',
     type: 'work',
+    accent: 'rose',
     description:
       'Internship focused on Python development, scripting fundamentals, and clean implementation.',
     focus: ['Python', 'Software Development'],
@@ -365,13 +392,13 @@ export const CERTIFICATIONS: CertificationItem[] = [
 ];
 
 export const STACK_MATRIX: StackItem[] = [
-  { index: '01', name: 'Python', domain: 'ai', note: 'Core ML scripting, data pipelines & model experimentation' },
-  { index: '02', name: 'Machine Learning', domain: 'ai', note: 'Supervised learning, regression, classification & evaluation' },
-  { index: '03', name: 'NLP & Transformers', domain: 'ai', note: 'Transformer architectures, embeddings & prompt workflows' },
-  { index: '04', name: 'OCR', domain: 'ai', note: 'Receipt parsing & structured document data extraction' },
-  { index: '05', name: 'JavaScript', domain: 'engineering', note: 'Interactive web interfaces & full-stack application logic' },
-  { index: '06', name: 'HTML', domain: 'engineering', note: 'Semantic structure, accessible forms & clean markup' },
-  { index: '07', name: 'Full-stack', domain: 'engineering', note: 'Frontend, backend APIs & relational/document databases' },
-  { index: '08', name: 'AWS Cloud', domain: 'product', note: 'Cloud design principles, scalability & deployment basics' },
-  { index: '09', name: 'Product Management', domain: 'product', note: '0-to-1 hackathon scoping, user feedback & launches' },
+  { index: '01', name: 'Python', domain: 'ai', accent: 'blue', note: 'Core ML scripting, data pipelines & model experimentation' },
+  { index: '02', name: 'Machine Learning', domain: 'ai', accent: 'indigo', note: 'Supervised learning, regression, classification & evaluation' },
+  { index: '03', name: 'NLP & Transformers', domain: 'ai', accent: 'violet', note: 'Transformer architectures, embeddings & prompt workflows' },
+  { index: '04', name: 'OCR', domain: 'ai', accent: 'emerald', note: 'Receipt parsing & structured document data extraction' },
+  { index: '05', name: 'JavaScript', domain: 'engineering', accent: 'blue', note: 'Interactive web interfaces & full-stack application logic' },
+  { index: '06', name: 'HTML', domain: 'engineering', accent: 'rose', note: 'Semantic structure, accessible forms & clean markup' },
+  { index: '07', name: 'Full-stack', domain: 'engineering', accent: 'indigo', note: 'Frontend, backend APIs & relational/document databases' },
+  { index: '08', name: 'AWS Cloud', domain: 'product', accent: 'violet', note: 'Cloud design principles, scalability & deployment basics' },
+  { index: '09', name: 'Product Management', domain: 'product', accent: 'emerald', note: '0-to-1 hackathon scoping, user feedback & launches' },
 ];

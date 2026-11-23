@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="dark scroll-smooth">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -25,16 +25,16 @@
       (function () {
         try {
           var stored = localStorage.getItem('aasiya-theme');
-          if (stored === 'light') {
-            document.documentElement.classList.remove('dark');
-          } else {
+          if (stored === 'dark') {
             document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
           }
         } catch (e) {}
       })();
     </script>
   </head>
-  <body class="bg-zinc-50 text-zinc-900 dark:bg-[#09090B] dark:text-zinc-100 antialiased selection:bg-blue-600 selection:text-white">
+  <body class="bg-white text-zinc-900 dark:bg-[#09090B] dark:text-zinc-100 antialiased selection:bg-blue-600 selection:text-white">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
