@@ -1,11 +1,30 @@
-<div align="center">
+# aasiya.dev — AI & ML Portfolio
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+Personal portfolio for **Aasiya Hadiya**, AI & Data Science undergraduate (’28), Machine Learning Intern at FlyRank AI, and Co-Founder of StashVault.
 
-  <h1>Built with AI Studio</h2>
+## Highlights
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+- **Interactive Hero Studio**: Switch between a Canvas 2D Skill Graph, an interactive `aasiya.dev` Boot Console, and a StashVault OCR extraction simulator.
+- **Projects & Architecture Breakdown**: Filterable project showcase (`All Projects`, `AI & ML`, `Web`) with detailed architecture modals for **StashVault**, **ACE · Machine Learning**, **EcoRack-AI**, **abtalks 2.0**, and **Report It**.
+- **Experience, Education & Certifications**: Filterable timeline for internships and fellowships alongside a searchable certifications explorer.
+- **Dual Theme**: Light and dark mode support persisted in `localStorage`.
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## Tech Stack
 
-</div>
+- React 19 + TypeScript
+- Vite
+- Tailwind CSS v4
+- Lucide Icons
+
+## Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+## Production Build
+
+```bash
+npm run build
+```
