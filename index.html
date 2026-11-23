@@ -22,19 +22,13 @@
       rel="stylesheet"
     />
     <script>
-      (function () {
-        try {
-          var stored = localStorage.getItem('aasiya-theme');
-          if (stored === 'dark') {
-            document.documentElement.classList.add('dark');
-          } else {
-            document.documentElement.classList.remove('dark');
-          }
-        } catch (e) {}
-      })();
+      try {
+        document.documentElement.classList.remove('dark');
+        localStorage.removeItem('aasiya-theme');
+      } catch (e) {}
     </script>
   </head>
-  <body class="bg-white text-zinc-900 dark:bg-[#09090B] dark:text-zinc-100 antialiased selection:bg-blue-600 selection:text-white">
+  <body class="bg-white text-blue-950 antialiased selection:bg-blue-600 selection:text-white">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

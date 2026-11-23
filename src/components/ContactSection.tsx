@@ -34,18 +34,18 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="border-t border-zinc-200 py-20 dark:border-zinc-800"
+      className="border-t border-blue-100 bg-white py-20"
     >
       <div className="grid gap-12 lg:grid-cols-12 lg:items-start">
         <div className="lg:col-span-6">
-          <p className="text-sm font-semibold text-rose-600 dark:text-rose-400">
+          <p className="text-sm font-semibold text-rose-700">
             Contact
           </p>
-          <h2 className="mt-2 max-w-lg font-display text-3xl font-bold tracking-tight text-zinc-950 sm:text-4xl dark:text-zinc-50 text-balance">
+          <h2 className="mt-2 max-w-lg font-display text-3xl font-bold tracking-tight text-blue-900 sm:text-4xl text-balance">
             Open to internships, collaborations and{' '}
-            <span className="text-blue-600 dark:text-blue-400">hackathon teams</span>.
+            <span className="text-blue-600">hackathon teams</span>.
           </h2>
-          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-zinc-600 dark:text-zinc-400">
+          <p className="mt-4 max-w-md text-[15px] leading-relaxed text-indigo-900/85">
             Whether you’re hiring for Machine Learning or AI engineering internships, forming a hackathon team, or exploring product collaborations, let’s connect.
           </p>
 
@@ -61,11 +61,11 @@ export function ContactSection() {
             <button
               type="button"
               onClick={handleCopyEmail}
-              className="inline-flex items-center gap-2 rounded-lg border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-indigo-700 transition-colors hover:border-indigo-300 hover:bg-indigo-50/60 dark:border-zinc-800 dark:bg-zinc-900 dark:text-indigo-300 dark:hover:border-zinc-700 whitespace-nowrap shrink-0"
+              className="inline-flex items-center gap-2 rounded-lg border border-blue-200 bg-white px-4 py-2.5 text-sm font-medium text-indigo-700 transition-colors hover:border-indigo-400 hover:bg-blue-50/60 whitespace-nowrap shrink-0"
             >
               {copied ? (
                 <>
-                  <Check className="h-4 w-4 text-emerald-600 dark:text-emerald-400" />
+                  <Check className="h-4 w-4 text-emerald-700" />
                   Copied email
                 </>
               ) : (
@@ -77,12 +77,12 @@ export function ContactSection() {
             </button>
           </div>
 
-          <div className="mt-8 flex items-center gap-6 text-sm font-medium">
+          <div className="mt-8 flex items-center gap-6 text-sm font-semibold">
             <a
               href={PROFILE.linkedin}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 text-blue-600 transition-colors hover:text-blue-700 dark:text-blue-400"
+              className="inline-flex items-center gap-1 text-blue-700 transition-colors hover:text-blue-800"
             >
               LinkedIn <ArrowUpRight className="h-4 w-4" />
             </a>
@@ -90,7 +90,7 @@ export function ContactSection() {
               href={PROFILE.github}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1 text-emerald-600 transition-colors hover:text-emerald-700 dark:text-emerald-400"
+              className="inline-flex items-center gap-1 text-emerald-700 transition-colors hover:text-emerald-800"
             >
               GitHub <ArrowUpRight className="h-4 w-4" />
             </a>
@@ -99,16 +99,16 @@ export function ContactSection() {
 
         {/* Direct Inquiry Composer */}
         <div className="lg:col-span-6">
-          <div className="rounded-2xl border border-zinc-200 bg-white p-6 dark:border-zinc-800 dark:bg-[#111114]">
-            <h3 className="font-display text-lg font-semibold text-indigo-700 dark:text-indigo-300">
+          <div className="rounded-2xl border border-blue-200 bg-white p-6">
+            <h3 className="font-display text-lg font-semibold text-indigo-700">
               Start a conversation
             </h3>
-            <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+            <p className="mt-1 text-sm text-blue-900/75">
               Pick a topic and compose a direct email draft in one click.
             </p>
 
             <div className="mt-5">
-              <span className="block text-xs font-medium text-zinc-600 dark:text-zinc-400">
+              <span className="block text-xs font-semibold text-blue-800">
                 Topic
               </span>
               <div className="mt-2 flex flex-wrap gap-2">
@@ -120,7 +120,7 @@ export function ContactSection() {
                     className={`rounded-lg border px-3 py-1.5 text-xs font-medium transition-colors whitespace-nowrap shrink-0 ${
                       selectedTopic === topic
                         ? 'border-blue-600 bg-blue-600 text-white'
-                        : 'border-zinc-200 bg-white text-zinc-700 hover:border-blue-300 hover:text-blue-700 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-300 dark:hover:border-zinc-700'
+                        : 'border-blue-200 bg-white text-indigo-700 hover:border-blue-400 hover:text-blue-700'
                     }`}
                   >
                     {topic}
@@ -132,7 +132,7 @@ export function ContactSection() {
             <div className="mt-5">
               <label
                 htmlFor="contact-note"
-                className="block text-xs font-medium text-zinc-600 dark:text-zinc-400"
+                className="block text-xs font-semibold text-blue-800"
               >
                 Your note
               </label>
@@ -142,12 +142,12 @@ export function ContactSection() {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder={`Hi Aasiya, reaching out about ${selectedTopic}...`}
-                className="mt-2 w-full rounded-xl border border-zinc-200 bg-white px-3.5 py-2.5 text-sm text-zinc-900 placeholder:text-zinc-400 focus:border-blue-600 focus:outline-none dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500"
+                className="mt-2 w-full rounded-xl border border-blue-200 bg-white px-3.5 py-2.5 text-sm text-blue-900 placeholder:text-indigo-400 focus:border-blue-600 focus:outline-none"
               />
             </div>
 
             <div className="mt-5 flex items-center justify-between gap-4">
-              <span className="text-xs text-zinc-500 dark:text-zinc-400">
+              <span className="text-xs text-indigo-600">
                 Opens your default mail client
               </span>
               <a

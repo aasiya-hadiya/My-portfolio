@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
   --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
@@ -11,6 +10,12 @@
   html {
     font-family: var(--font-sans);
     scroll-padding-top: 5.5rem;
+    background-color: #ffffff;
+    color: #172554;
+  }
+
+  body {
+    background-color: #ffffff;
   }
 
   h1, h2, h3, .font-display {
